@@ -1,0 +1,61 @@
+import axios from 'axios';
+import * as SecureStore from 'expo-secure-store';
+
+const API = 'http://10.0.2.2:5000/api';
+
+// Регистрация пользователя
+export const signup = async (user) => {
+    try {
+        const response = await axios.post(`${API}/signup`, user, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        return response.data;
+    } catch (err) {
+        console.error('Signup error:', err);
+        throw err;
+    }
+};
+
+// Вход пользователя
+export const signin = async (user) => {
+    try {
+        const response = await axios.post(`${API}/signin`, user, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        return response.data;
+    } catch (err) {
+        console.error('Signin error:', err);
+        throw err;
+    }
+};
+
+// Сохранение токена
+export const authenticate = async (data) => {
+    try {
+        await SecureStore.setItemAsync('jwt', JSON.stringify(data));
+    } catch (err) {
+        console.error('Error storing JWT:', err);
+    }
+};
+
+// Выход пользователя
+export const signout = async () => {
+    try {
+        await SecureStore.deleteItemAsync('jwt');
+        await axios.get(`${API}/signout`);
+        console.log('User signed out successfully');
+    } catch (err) {
+        console.error('Signout error:', err);
+    }
+};
+
+// Проверка аутентификации
+export const isAuthenticated = async () => {
+    try {
+        const jwt = await SecureStore.getItemAsync('jwt');
+        return jwt ? JSON.parse(jwt) : null;
+    } catch (err) {
+        console.error('Error retrieving JWT:', err);
+        return null;
+    }
+};
