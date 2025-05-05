@@ -4,18 +4,22 @@ const { expressjwt: expressJwt } = require('express-jwt');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 exports.signup = async (req, res) => {
-    const user = new User(req.body);
-
     try {
-        const savedUser = await user.save(); 
-        savedUser.salt = undefined;
-        savedUser.hashed_password = undefined;
-        res.json({
-            user: savedUser
-        });
+        const user = new User();
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = req.body.password; // важно! это виртуальное поле
+        await user.save();
+
+        user.salt = undefined;
+        user.hashed_password = undefined;
+
+        res.json({ user });
     } catch (err) {
+        console.error('Signup error:', err);
         return res.status(400).json({
-            error: 'Email is taken'
+            error: 'Email is taken or invalid data',
+            details: err.message
         });
     }
 };
