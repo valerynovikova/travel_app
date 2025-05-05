@@ -10,6 +10,7 @@ export const signup = async (user) => {
             headers: { 'Content-Type': 'application/json' },
         });
         return response.data;
+
     } catch (err) {
         console.error('Signup error:', err);
         throw err;

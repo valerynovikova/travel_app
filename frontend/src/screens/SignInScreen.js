@@ -12,6 +12,7 @@ const SignInScreen = ({ navigation }) => {
             const data = await signin({ email, password });
             await authenticate(data);
             Alert.alert('Успешный вход', 'Вы вошли в систему');
+            navigation.replace('Profile');
         } catch (err) {
             Alert.alert('Ошибка входа', 'Неверный email или пароль');
         }
