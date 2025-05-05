@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-const API = 'http://10.0.2.2:5000/api';
+const API = 'http://localhost:5000/api';
 
 // Регистрация пользователя
 export const signup = async (user) => {
