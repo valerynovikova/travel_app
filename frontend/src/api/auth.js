@@ -1,9 +1,9 @@
+// src/api/auth.js
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-const API = 'http://localhost:5000/api';
+const API = 'http://localhost:5000/api'; // Замените на ваш URL API
 
-// Регистрация пользователя
 export const signup = async (user) => {
     try {
         const response = await axios.post(`${API}/signup`, user, {
@@ -16,7 +16,6 @@ export const signup = async (user) => {
     }
 };
 
-// Вход пользователя
 export const signin = async (user) => {
     try {
         const response = await axios.post(`${API}/signin`, user, {
@@ -29,7 +28,6 @@ export const signin = async (user) => {
     }
 };
 
-// Сохранение токена
 export const authenticate = async (data) => {
     try {
         await SecureStore.setItemAsync('jwt', JSON.stringify(data));
@@ -38,7 +36,6 @@ export const authenticate = async (data) => {
     }
 };
 
-// Выход пользователя
 export const signout = async () => {
     try {
         await SecureStore.deleteItemAsync('jwt');
@@ -49,7 +46,6 @@ export const signout = async () => {
     }
 };
 
-// Проверка аутентификации
 export const isAuthenticated = async () => {
     try {
         const jwt = await SecureStore.getItemAsync('jwt');

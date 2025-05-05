@@ -1,29 +1,18 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { signin, authenticate, isAuthenticated } from "@/src/api/auth";
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SignInScreen from '../../src/screens/SignInScreen';
+import SignUpScreen from '../../src/screens/SignUpScreen';
 
-const App = () => {
-    useEffect(() => {
-        const login = async () => {
-            try {
-                const user = { email: 'user@example.com', password: 'password123' };
-                const data = await signin(user);
-                await authenticate(data);
-                const authData = await isAuthenticated();
-                console.log('Authenticated user:', authData);
-            } catch (err) {
-                console.error('Authentication error:', err);
-            }
-        };
+const Stack = createNativeStackNavigator();
 
-        login();
-    }, []);
-
+export default function App() {
     return (
-        <View>
-            <Text>Добро пожаловать в приложение!</Text>
-        </View>
+            <Stack.Navigator initialRouteName="SignIn">
+                <Stack.Screen name="SignIn" component={SignInScreen} options={{ title: 'Вход' }} />
+                <Stack.Screen name="SignUp" component={SignUpScreen} options={{ title: 'Регистрация' }} />
+                {/* Добавьте другие экраны, например, Home */}
+            </Stack.Navigator>
     );
-};
-
-export default App;
+}
