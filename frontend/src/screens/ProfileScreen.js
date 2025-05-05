@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { isAuthenticated, signout } from '../api/auth';
+import Layout from '../components/Layout';
 
 const ProfileScreen = ({ navigation }) => {
     const [user, setUser] = useState(null);
@@ -37,13 +38,15 @@ const ProfileScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Профиль</Text>
-            <Text style={styles.label}>Имя: {user.name}</Text>
-            <Text style={styles.label}>Email: {user.email}</Text>
-            <Text style={styles.label}>Роль: {user.role === 1 ? 'Администратор' : 'Пользователь'}</Text>
-            <Button title="Выйти" onPress={handleSignOut} />
-        </View>
+        <Layout>
+            <View style={styles.container}>
+                <Text style={styles.title}>Профиль</Text>
+                <Text style={styles.label}>Имя: {user.name}</Text>
+                <Text style={styles.label}>Email: {user.email}</Text>
+                <Text style={styles.label}>Роль: {user.role === 1 ? 'Администратор' : 'Пользователь'}</Text>
+                <Button title="Выйти" onPress={handleSignOut} />
+            </View>
+        </Layout>
     );
 };
 
