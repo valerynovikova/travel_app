@@ -2,7 +2,7 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-const API = 'http://192.168.1.8:5000/api'; // Замените на ваш URL API
+const API = 'http://192.168.1.8:5000/api';
 
 export const signup = async (user) => {
     try {

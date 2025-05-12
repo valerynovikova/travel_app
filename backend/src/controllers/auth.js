@@ -8,7 +8,7 @@ exports.signup = async (req, res) => {
         const user = new User();
         user.name = req.body.name;
         user.email = req.body.email;
-        user.password = req.body.password; // важно! это виртуальное поле
+        user.password = req.body.password;
         await user.save();
 
         user.salt = undefined;
@@ -29,7 +29,7 @@ exports.signin = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email }); 
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({
                 error: 'User with that email does not exist. Please signup'
@@ -50,7 +50,7 @@ exports.signin = async (req, res) => {
         return res.json({ token, user: { _id, email, name, role } });
 
     } catch (err) {
-        
+
         return res.status(400).json({
             error: 'Signin failed'
         });
